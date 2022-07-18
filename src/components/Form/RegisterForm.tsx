@@ -1,12 +1,9 @@
 import React from 'react';
 import {Box, Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
-import {IUseProvideAuth, useAuth} from "../hooks/useAuth";
 import {useNavigate} from "react-router-dom";
 
 const RegisterForm = () => {
-
-    const auth = useAuth();
 
     const navigate = useNavigate();
 
@@ -33,10 +30,7 @@ const RegisterForm = () => {
     };
 
     const submitForm = async () => {
-        const result = await auth.signUp(values.email, values.password);
-        if(result){
-            navigate("/login");
-        }
+
     }
 
     return (
