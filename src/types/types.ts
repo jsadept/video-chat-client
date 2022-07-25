@@ -39,3 +39,14 @@ export enum LoadingStatus {
     NEVER = "NEVER",
     SUCCESS = "SUCCESS"
 }
+
+export interface UserData {
+    email: string;
+    password: string;
+}
+
+export interface UserRegistration {
+    nickName: string;
+    email: string;
+    password: string;
+}

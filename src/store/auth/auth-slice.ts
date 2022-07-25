@@ -1,0 +1,70 @@
+import {LoadingStatus} from "../../types/types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {login, registration} from "./auth-thunks";
+
+
+// create initialState
+// create interface
+// createSlice
+
+
+export interface AuthState {
+    loadingState: LoadingStatus;
+    isRegistered: boolean;
+    success: string;
+    error: string;
+}
+
+
+
+
+export const initialState: AuthState = {
+    loadingState: LoadingStatus.LOADING,
+    isRegistered: false,
+    success: "",
+    error: "",
+}
+
+
+export const authSlice = createSlice({
+    name: 'auth',
+    initialState,
+    reducers: {
+        setAuthLoadingState(state, action: PayloadAction<LoadingStatus>){
+            state.loadingState = action.payload;
+        },
+        resetAuthState: () => initialState
+    },
+    extraReducers: (builder) =>{
+        // login
+        builder.addCase(login.fulfilled, (state, action) => {
+            state.isRegistered = true;
+            state.loadingState = LoadingStatus.LOADED;
+        });
+        builder.addCase(login.pending, (state, action) => {
+            state.loadingState = LoadingStatus.LOADING;
+            state.error = "";
+        });
+        builder.addCase(login.rejected, (state, action) => {
+            state.error = action.payload!;
+        });
+
+        //registration
+        builder.addCase(registration.fulfilled, (state, action) => {
+            state.isRegistered = true;
+            state.loadingState = LoadingStatus.LOADED;
+        });
+        builder.addCase(registration.pending, (state, action) => {
+            state.loadingState = LoadingStatus.LOADING;
+            state.error = "";
+        });
+        builder.addCase(registration.rejected, (state, action) => {
+            state.error = action.payload!;
+        });
+    }
+})
+
+
+export const {setAuthLoadingState, resetAuthState} = authSlice.actions;
+
+export default authSlice.reducer;
