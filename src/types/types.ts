@@ -40,6 +40,27 @@ export enum LoadingStatus {
     SUCCESS = "SUCCESS"
 }
 
+
+export enum CreatingStatus {
+    CREATED = "CREATED",
+    CREATING = "CREATING",
+    ERROR = "ERROR",
+    NEVER = "NEVER",
+    SUCCESS = "SUCCESS"
+}
+
+
+export enum JoiningStatus {
+    JOINED = "JOINED",
+    JOINING = "JOINING",
+    ERROR = "ERROR",
+    NEVER = "NEVER",
+    SUCCESS = "SUCCESS",
+    LEAVING = "LEAVING",
+    LEAVED = "LEAVED"
+}
+
+
 export interface UserData {
     email: string;
     password: string;

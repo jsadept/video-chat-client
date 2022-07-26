@@ -13,5 +13,6 @@ export const AUTH_REG = "/auth/register";
 
 
 // room
-export const ROOM_CREATE = "/room/createRoom";
+export const ROOM_CREATE = "/room/create";
 export const ROOM_JOIN = "/room/join";
+export const ROOM_LEAVE = "/room/leave";
