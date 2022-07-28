@@ -1,5 +1,10 @@
 
 
+export interface RemoteMediaData {
+    peerId: string;
+    userInfo?: string;
+    stream: MediaStream;
+}
 
 export interface IMediaData {
     videoSources: [];
@@ -49,6 +54,14 @@ export enum CreatingStatus {
     SUCCESS = "SUCCESS"
 }
 
+export enum ConnectingStatus {
+    CONNECTED = "CONNECTED",
+    CONNECTING = "CONNECTING",
+    ERROR = "ERROR",
+    NEVER = "NEVER",
+    SUCCESS = "SUCCESS"
+}
+
 
 export enum JoiningStatus {
     JOINED = "JOINED",
@@ -70,4 +83,19 @@ export interface UserRegistration {
     nickName: string;
     email: string;
     password: string;
+}
+
+
+
+export interface VideoSettings {
+    deviceId?: string | { exact: string };
+    min?: number;
+    ideal?: number;
+    max?: number;
+}
+
+
+
+export interface AudioSettings {
+    deviceId?: string | { exact: string };
 }
