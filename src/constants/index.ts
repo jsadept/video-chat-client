@@ -3,6 +3,9 @@
 export const SERVER_BASE_URL = "http://localhost:5500";
 export const WEBSOCKET_BASE_URL = "http://localhost:3001";
 
+export const PEER_BASE_URL = "http://localhost";
+export const PEER_PORT = 9000;
+
 export const API_BASE_URL = SERVER_BASE_URL + "/api";
 export const WEBSOCKET_URL = WEBSOCKET_BASE_URL + "/websocket";
 
