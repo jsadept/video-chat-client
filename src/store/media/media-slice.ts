@@ -118,6 +118,8 @@ export const {
     setVideoSources,
     setSelectedAudioId,
     setSelectedVideoId,
+    addRemoteStream,
+    removeRemoteStream
 } = mediaSlice.actions;
 
 

@@ -2,7 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import { RootState } from "../index";
 import axios from "axios";
 import {API_BASE_URL, AUTH_LOGIN, ROOM_CREATE, ROOM_JOIN, ROOM_LEAVE} from "../../constants";
-import {setUser} from "../user/user-slice";
+import {peerCall} from "../peer/peer-thunks";
 
 
 
@@ -22,6 +22,11 @@ export const joinRoom = createAsyncThunk<
         const token = localStorage.getItem('token');
 
         await axios.post(API_BASE_URL+ROOM_JOIN, {token, socket, roomId});
+
+        socket.on('newUser', ({ userInfo, peerId }) => {
+            thunkAPI.dispatch(peerCall({ userInfo, peerId }))
+        })
+
         return roomId;
     }
     catch (e) {
