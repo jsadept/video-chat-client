@@ -1,10 +1,18 @@
 import React from 'react';
 import {Navigate, Route, Routes } from 'react-router-dom';
-import {useAppSelector} from "../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {IRoute, privateRoutes, publicRoutes, RouteNames } from '../../routes/routes';
 import {selectAuthIsLogin} from "../../store/auth/auth-selector";
+import {initAuth} from "../../store/auth/auth-thunks";
 
 const AppRouter = () => {
+
+    const dispatch = useAppDispatch();
+    // login if we have user in localStorage
+    dispatch(initAuth());
+
+
+
     const isAuth = useAppSelector(selectAuthIsLogin);
 
     return (
