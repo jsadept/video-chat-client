@@ -33,7 +33,7 @@ export const joinRoom = createAsyncThunk<
         // @ts-ignore
         return thunkAPI.rejectWithValue(e)
     }
-})
+});
 
 
 
@@ -54,7 +54,7 @@ export const createRoom = createAsyncThunk<
         // @ts-ignore
         return thunkAPI.rejectWithValue(error.response.data);
     }
-})
+});
 
 
 
@@ -64,7 +64,7 @@ export const leaveRoom = createAsyncThunk<
     string,
         string,
         {state: RootState,  rejectValue: string }
-    >('socket/createRoom', async (token, thunkAPI) => {
+    >('socket/leaveRoom', async (token, thunkAPI) => {
     try {
         const socket = thunkAPI.getState().socket.socket;
         const result = await axios.post(API_BASE_URL+ROOM_LEAVE, {token, socket});
@@ -73,5 +73,5 @@ export const leaveRoom = createAsyncThunk<
         // @ts-ignore
         return thunkAPI.rejectWithValue(e)
     }
-})
+});
 

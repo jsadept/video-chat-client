@@ -74,18 +74,18 @@ const mediaSlice = createSlice({
         builder.addCase(updateStream.fulfilled, (state, action) => {
             state.userStream = action.payload;
             state.isMediaConnected = ConnectingStatus.CONNECTED;
-        }),
+        });
         builder.addCase(updateStream.pending, (state, action) => {
 
             state.isMediaConnected = ConnectingStatus.CONNECTING;
             state.error = '';
-        }),
+        });
         builder.addCase(updateStream.rejected, (state, action) => {
 
             state.userStream = undefined;
             state.isMediaConnected = ConnectingStatus.ERROR;
             state.error = action.payload!;
-        }),
+        });
 
         //updateStream
         builder.addCase(getStreamSources.fulfilled, (state, action) => {
@@ -93,12 +93,12 @@ const mediaSlice = createSlice({
             state.audioSources = action.payload.audioInputs;
 
             state.isMediaConnected = ConnectingStatus.CONNECTED;
-        }),
+        });
         builder.addCase(getStreamSources.pending, (state, action) => {
 
             state.isMediaConnected = ConnectingStatus.CONNECTING;
             state.error = '';
-        }),
+        });
         builder.addCase(getStreamSources.rejected, (state, action) => {
 
             state.videoSources = [];
@@ -106,7 +106,7 @@ const mediaSlice = createSlice({
 
             state.isMediaConnected = ConnectingStatus.ERROR;
             state.error = action.payload!;
-        })
+        });
     }
 })
 

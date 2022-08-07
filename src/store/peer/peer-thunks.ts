@@ -63,7 +63,7 @@ export const peerCall = createAsyncThunk<
     void,
     { userInfo: string, peerId: string },
     {state: RootState,  rejectValue: string }
-    >('peer/peerDisconnect', async ({ userInfo, peerId }, thunkAPI) => {
+    >('peer/peerCall', async ({ userInfo, peerId }, thunkAPI) => {
         try {
 
             const { peer } = thunkAPI.getState().peer;

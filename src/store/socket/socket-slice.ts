@@ -38,54 +38,54 @@ export const socketSlice = createSlice({
     reducers: {
     },
     extraReducers: (builder) => {
-        //create
+
+        // create
         builder.addCase(createRoom.fulfilled, (state, action: PayloadAction<string>) => {
             state.createdRoom = action.payload;
             state.isCreated = CreatingStatus.CREATED;
-        }),
+        });
         builder.addCase(createRoom.pending, (state, action) => {
             state.isCreated = CreatingStatus.CREATING;
             state.error = '';
-        }),
+        });
         builder.addCase(createRoom.rejected, (state, action) => {
             state.isCreated = CreatingStatus.ERROR;
             state.error = action.payload!;
-        }),
+        });
 
-
-        //join
+        // join
         builder.addCase(joinRoom.fulfilled, (state, action) => {
 
             state.currentRoom = action.payload;
             state.isJoined = JoiningStatus.JOINED;
-        }),
+        });
         builder.addCase(joinRoom.pending, (state, action) => {
 
             state.isJoined = JoiningStatus.JOINING;
             state.error = '';
-        }),
+        });
         builder.addCase(joinRoom.rejected, (state, action) => {
 
             state.isJoined = JoiningStatus.ERROR;
             state.error = action.payload!;
-        }),
+        });
 
-        //leave
+        // leave
         builder.addCase(leaveRoom.fulfilled, (state, action) => {
 
             state.currentRoom = '';
             state.isJoined = JoiningStatus.LEAVED;
-        }),
+        });
         builder.addCase(leaveRoom.pending, (state, action) => {
 
             state.isJoined = JoiningStatus.LEAVING;
             state.error = '';
-        }),
+        });
         builder.addCase(leaveRoom.rejected, (state, action) => {
 
             state.isJoined = JoiningStatus.ERROR;
             state.error = action.payload!;
-        })
+        });
     }
 })
 
