@@ -11,6 +11,7 @@ import {login, registration} from "./auth-thunks";
 export interface AuthState {
     loadingState: LoadingStatus;
     isRegistered: boolean;
+    isLogin: boolean;
     success: string;
     error: string;
 }
@@ -21,6 +22,7 @@ export interface AuthState {
 export const initialState: AuthState = {
     loadingState: LoadingStatus.LOADING,
     isRegistered: false,
+    isLogin: false,
     success: "",
     error: "",
 }
@@ -38,7 +40,7 @@ export const authSlice = createSlice({
     extraReducers: (builder) =>{
         // login
         builder.addCase(login.fulfilled, (state, action) => {
-            state.isRegistered = true;
+            state.isLogin = true;
             state.loadingState = LoadingStatus.LOADED;
         });
         builder.addCase(login.pending, (state, action) => {
