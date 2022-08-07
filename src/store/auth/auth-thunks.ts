@@ -5,11 +5,29 @@ import {API_BASE_URL, AUTH_LOGIN} from "../../constants";
 import { setUser } from "../user/user-slice";
 
 
+export const initAuth = createAsyncThunk<
+    boolean,
+    void,
+    { rejectValue: string }
+    >('auth/initAuth', async (_, thunkAPI) => {
+        try {
+            const localUser = localStorage.getItem('user');
+            if(localUser){
+                thunkAPI.dispatch(setUser(JSON.parse(localUser)));
+                return true;
+            }
+            return false;
+        } catch (e) {
+            // @ts-ignore
+            return thunkAPI.rejectWithValue(error.response.data);
+        }
+});
+
 export const login = createAsyncThunk<
         UserResponse,
-        { userData: UserData},
+        UserData,
         { rejectValue: string }
-    >('auth/login', async ({userData}, thunkAPI) => {
+    >('auth/login', async (userData, thunkAPI) => {
     try {
         const result = await axios.post(API_BASE_URL+AUTH_LOGIN, userData);
         const token = result.data.token;

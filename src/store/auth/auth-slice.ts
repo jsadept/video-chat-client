@@ -1,6 +1,6 @@
 import {LoadingStatus} from "../../types/types";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {login, registration} from "./auth-thunks";
+import {initAuth, login, registration} from "./auth-thunks";
 
 
 // create initialState
@@ -36,8 +36,22 @@ export const authSlice = createSlice({
             state.loadingState = action.payload;
         },
         resetAuthState: () => initialState
+
     },
     extraReducers: (builder) =>{
+        //init
+        builder.addCase(initAuth.fulfilled, (state, action) => {
+            state.isLogin = true;
+            state.loadingState = LoadingStatus.LOADED;
+        });
+        builder.addCase(initAuth.pending, (state, action) => {
+            state.loadingState = LoadingStatus.LOADING;
+            state.error = "";
+        });
+        builder.addCase(initAuth.rejected, (state, action) => {
+            state.error = action.payload!;
+        });
+
         // login
         builder.addCase(login.fulfilled, (state, action) => {
             state.isLogin = true;
