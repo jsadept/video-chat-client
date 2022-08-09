@@ -1,15 +1,18 @@
 import {Visibility, VisibilityOff } from '@mui/icons-material';
 import {Box,
     Button, FormControl, FormHelperText, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, TextField } from '@mui/material';
-import React from 'react';
-import {useAuth} from "../hooks/useAuth";
+import React, {useEffect} from 'react';
 import {useNavigate} from "react-router-dom";
-import {RouteNames} from "../routes";
-import login from "../pages/Login";
+import { RouteNames } from '../../routes/routes';
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
+import {login} from "../../store/auth/auth-thunks";
+import {selectAuthIsLogin} from "../../store/auth/auth-selector";
+
 
 const LoginForm = () => {
 
-    const auth = useAuth();
+    const dispatch = useAppDispatch();
+    const isAuth = useAppSelector(selectAuthIsLogin);
     const navigate = useNavigate();
 
     const [values, setValues] = React.useState({
@@ -35,13 +38,20 @@ const LoginForm = () => {
     };
 
     const submitForm = async () => {
-         const result = await auth.signIn(values.email, values.password);
-        console.log(result)
-         if(typeof result != null){
-             console.log("navigate to home");
-             navigate(RouteNames.HOME);
-         }
+        dispatch(login({email: values.email, password: values.password}))
     }
+
+    useEffect(() => {
+        if(isAuth){
+            navigate(RouteNames.HOME);
+        }else{
+            setValues({
+                email: '',
+                password: '',
+                showPassword: false,
+            })
+        }
+    }, [isAuth])
 
     return (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '0' }}>
