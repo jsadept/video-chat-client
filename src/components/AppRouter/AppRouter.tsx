@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Navigate, Route, Routes } from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {IRoute, privateRoutes, publicRoutes, RouteNames } from '../../routes/routes';
@@ -7,14 +7,17 @@ import {initAuth} from "../../store/auth/auth-thunks";
 
 const AppRouter = () => {
 
+
     const dispatch = useAppDispatch();
-    // login if we have user in localStorage
-    dispatch(initAuth());
 
 
+    useEffect(() => {
+        // login if we have user in localStorage
+        dispatch(initAuth());
+    }, [])
 
     const isAuth = useAppSelector(selectAuthIsLogin);
-
+    console.log(isAuth)
     return (
         isAuth ?
             <Routes>
