@@ -31,6 +31,8 @@ export const userSlice = createSlice({
             state.loadingStatus = LoadingStatus.LOADED;
         },
         logoutSuccess(state) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
             state.user = undefined;
         }
     }

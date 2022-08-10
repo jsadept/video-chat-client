@@ -41,6 +41,7 @@ export const socketSlice = createSlice({
 
         // create
         builder.addCase(createRoom.fulfilled, (state, action: PayloadAction<string>) => {
+            console.log('test2')
             state.createdRoom = action.payload;
             state.isCreated = CreatingStatus.CREATED;
         });

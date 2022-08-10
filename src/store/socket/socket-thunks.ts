@@ -3,6 +3,7 @@ import { RootState } from "../index";
 import axios from "axios";
 import {API_BASE_URL, AUTH_LOGIN, ROOM_CREATE, ROOM_JOIN, ROOM_LEAVE} from "../../constants";
 import {peerCall} from "../peer/peer-thunks";
+import {Socket} from "socket.io-client";
 
 
 
@@ -40,14 +41,23 @@ export const joinRoom = createAsyncThunk<
 
 export const createRoom = createAsyncThunk<
         string,
-        string,
+        void,
         {state: RootState,  rejectValue: string }
-    >('socket/createRoom', async (token, thunkAPI) => {
+    >('socket/createRoom', async (_, thunkAPI) => {
     try {
-        const socket = thunkAPI.getState().socket.socket;
+        const socketId = thunkAPI.getState().socket.socket.id;
+        const token = localStorage.getItem('token');
+        console.log('test')
+        console.log('test2')
+        console.log(socketId)
+        const result = await axios.post(API_BASE_URL+ROOM_CREATE, {token, socketId})
+            .then((response) => response.data.roomId)
+            .catch((error) => thunkAPI.rejectWithValue(error))
+        console.log('test4')
+        console.log(result)
+        const roomId = result;
+        console.log('test5')
 
-        const result = await axios.post(API_BASE_URL+ROOM_CREATE, {token, socket});
-        const roomId = result.data.roomId;
 
         return roomId;
     } catch (e) {
@@ -61,12 +71,14 @@ export const createRoom = createAsyncThunk<
 
 
 export const leaveRoom = createAsyncThunk<
-    string,
         string,
+        void,
         {state: RootState,  rejectValue: string }
-    >('socket/leaveRoom', async (token, thunkAPI) => {
+    >('socket/leaveRoom', async (_, thunkAPI) => {
     try {
         const socket = thunkAPI.getState().socket.socket;
+        const token = localStorage.getItem('token');
+
         const result = await axios.post(API_BASE_URL+ROOM_LEAVE, {token, socket});
         return '';
     } catch (e) {
