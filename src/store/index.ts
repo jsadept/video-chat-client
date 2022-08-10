@@ -15,6 +15,10 @@ export const store = configureStore({
         media: mediaSlice,
         peer: peerSlice,
     },
+    middleware: getDefaultMiddleware =>
+        getDefaultMiddleware({
+            serializableCheck: false,
+        }),
 });
 
 export type AppDispatch = typeof store.dispatch;
