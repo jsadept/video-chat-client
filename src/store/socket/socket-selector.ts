@@ -1,7 +1,7 @@
 import {RootState} from "../index";
 import {SocketState} from "./socket-slice";
 import {Socket} from "socket.io-client";
-import {CreatingStatus, JoiningStatus} from "../../types/types";
+import {CheckingStatus, CreatingStatus, JoiningStatus} from "../../types/types";
 
 
 
@@ -12,3 +12,5 @@ export const selectSocketIsCreatedState = (state: RootState): CreatingStatus => 
 export const selectSocketCurrentRoomState = (state: RootState): string => selectSocketState(state).currentRoom;
 export const selectSocketCreatedRoomState = (state: RootState): string => selectSocketState(state).createdRoom;
 export const selectSocketErrorState = (state: RootState): string => selectSocketState(state).error;
+export const selectSocketIsRoomCreated = (state: RootState): boolean | null => selectSocketState(state).isRoomCreated;
+export const selectSocketIsChecked = (state: RootState): CheckingStatus => selectSocketState(state).isChecked;
