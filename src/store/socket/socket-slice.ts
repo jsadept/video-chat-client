@@ -2,14 +2,9 @@
 import { io, Socket } from "socket.io-client";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {WEBSOCKET_BASE_URL} from "../../constants";
-import {createRoom, joinRoom, leaveRoom} from "./socket-thunks";
-import {CreatingStatus, JoiningStatus} from "../../types/types";
+import {checkRoom, createRoom, joinRoom, leaveRoom} from "./socket-thunks";
+import {CheckingStatus, CreatingStatus, JoiningStatus} from "../../types/types";
 
-
-
-// create initialState
-// create interface
-// createSlice
 
 
 export interface SocketState{
@@ -19,6 +14,8 @@ export interface SocketState{
     currentRoom: string;
     createdRoom: string;
     error: string;
+    isRoomCreated: boolean | null;
+    isChecked: CheckingStatus;
 }
 
 export const initialState: SocketState = {
@@ -27,7 +24,9 @@ export const initialState: SocketState = {
     isCreated: CreatingStatus.NEVER,
     currentRoom: '',
     createdRoom: '',
-    error: ''
+    error: '',
+    isRoomCreated: null,
+    isChecked: CheckingStatus.NEVER
 }
 
 
@@ -36,12 +35,17 @@ export const socketSlice = createSlice({
     name: 'socket',
     initialState,
     reducers: {
+        setCurrentRoom: (state, action: PayloadAction<string>) => {
+            state.currentRoom = action.payload;
+        },
+        resetIsChecked: (state) => {
+            state.isChecked = CheckingStatus.NEVER;
+        }
     },
     extraReducers: (builder) => {
 
         // create
         builder.addCase(createRoom.fulfilled, (state, action: PayloadAction<string>) => {
-            console.log('test2')
             state.createdRoom = action.payload;
             state.isCreated = CreatingStatus.CREATED;
         });
@@ -87,8 +91,30 @@ export const socketSlice = createSlice({
             state.isJoined = JoiningStatus.ERROR;
             state.error = action.payload!;
         });
+
+        // check
+        builder.addCase(checkRoom.fulfilled, (state, action: PayloadAction<boolean>) => {
+            state.isRoomCreated = action.payload;
+            state.isChecked = CheckingStatus.CHECKED;
+        });
+        builder.addCase(checkRoom.pending, (state, action) => {
+            state.isRoomCreated = null;
+            state.isChecked = CheckingStatus.CHECKING;
+        });
+        builder.addCase(checkRoom.rejected, (state, action) => {
+            state.isRoomCreated = null;
+            state.isChecked = CheckingStatus.ERROR;
+            state.error = action.payload!;
+        });
     }
 })
+
+
+
+export const {
+    setCurrentRoom,
+    resetIsChecked
+} = socketSlice.actions;
 
 
 export default socketSlice.reducer;
