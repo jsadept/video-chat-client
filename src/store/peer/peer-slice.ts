@@ -1,6 +1,6 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {peerCall, peerConnect, peerDisconnect} from "./peer-thunks";
-import Peer from "peerjs";
+import Peer, {MediaConnection} from "peerjs";
 import {ConnectingStatus} from "../../types/types";
 
 
@@ -18,17 +18,16 @@ export const initialState: PeerState = {
     isPeerConnected: ConnectingStatus.NEVER,
     isPeerCallConnected: ConnectingStatus.NEVER,
     error: '',
-    callError: ''
+    callError: '',
 }
 
 
 export const peerSlice = createSlice({
     name: 'peer',
     initialState,
-    reducers: {
-    },
+    reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(peerConnect.fulfilled, (state, action) => {
+        builder.addCase(peerConnect.fulfilled, (state, action: PayloadAction<Peer>) => {
             state.peer = action.payload;
             state.isPeerConnected = ConnectingStatus.CONNECTED;
         });
@@ -57,7 +56,7 @@ export const peerSlice = createSlice({
 
 
 
-        builder.addCase(peerCall.fulfilled, (state, action) => {
+        builder.addCase(peerCall.fulfilled, (state, action: PayloadAction<MediaConnection>) => {
             state.isPeerCallConnected = ConnectingStatus.CONNECTED;
         });
         builder.addCase(peerCall.pending, (state, action) => {
