@@ -16,19 +16,19 @@ export const updateStream = createAsyncThunk<
                 audio: isAudio && { deviceId: selectedAudioId }
             }).then((myStream: MediaStream) => {
                 return myStream;
-            }).catch((e) => {
-                // @ts-ignore
-                return thunkAPI.rejectWithValue(e)
+            }).catch((err) => {
+                const error = err as Error;
+                return thunkAPI.rejectWithValue(error.message);
             });
-        } catch (e) {
-            // @ts-ignore
-            return thunkAPI.rejectWithValue(e)
+        } catch (err) {
+            const error = err as Error;
+            return thunkAPI.rejectWithValue(error.message)
         }
 })
 
 
 export const getStreamSources = createAsyncThunk<
-    {audioInputs: MediaDeviceInfo[], videos: MediaDeviceInfo[]},
+    {audioInputs: MediaDeviceInfo[], videos: MediaDeviceInfo[], selectedCameraId: string, selectedAudioId: string},
     void,
     {rejectValue: string }
     >('media/getStreamSources', async (_, thunkAPI) => {
@@ -38,14 +38,17 @@ export const getStreamSources = createAsyncThunk<
                 const devices = await navigator.mediaDevices.enumerateDevices();
                 const audioInputs = devices.filter(device => device.kind === 'audioinput');
                 const videos = devices.filter(device => device.kind === 'videoinput');
+                const selectedCameraId = localStorage.getItem('selectedCameraId') || '';
+                const selectedAudioId = localStorage.getItem('selectedAudioId') || '';
 
-                return {audioInputs, videos};
+
+                return {audioInputs, videos, selectedCameraId, selectedAudioId};
             }
             else{
                 return thunkAPI.rejectWithValue('No media devices');
             }
-        } catch (e) {
-            // @ts-ignore
-            return thunkAPI.rejectWithValue(e);
+        } catch (err) {
+            const error = err as Error;
+            return thunkAPI.rejectWithValue(error.message)
         }
 });
