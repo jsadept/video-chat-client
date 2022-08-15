@@ -1,6 +1,5 @@
-import {createSlice, current, PayloadAction} from "@reduxjs/toolkit";
-import {AudioSettings, ConnectingStatus, JoiningStatus, RemoteMediaData, VideoSettings} from "../../types/types";
-import {leaveRoom} from "../socket/socket-thunks";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {AudioSettings, ConnectingStatus, RemoteMediaData, VideoSettings} from "../../types/types";
 import {getStreamSources, updateStream} from "./media-thunks";
 
 
@@ -39,11 +38,11 @@ const mediaSlice = createSlice({
         setStream: (state, action: PayloadAction<MediaStream>) => {
             state.userStream = action.payload;
         },
-        setIsVideo: (state, action: PayloadAction<boolean>) => {
-            state.isVideo = action.payload;
+        setIsVideo: (state) => {
+            state.userStream?.getVideoTracks().forEach(track => track.enabled = !track.enabled);
         },
-        setIsAudio: (state, action: PayloadAction<boolean>) => {
-            state.isAudio = action.payload;
+        setIsAudio: (state) => {
+            state.userStream?.getAudioTracks().forEach(track => track.enabled = !track.enabled);
         },
         setAudioSources: (state, action: PayloadAction<MediaDeviceInfo[]>) => {
             state.audioSources = action.payload;
@@ -53,12 +52,17 @@ const mediaSlice = createSlice({
         },
         setSelectedAudioId: (state, action: PayloadAction<string>) => {
             state.selectedAudioId = action.payload;
+            localStorage.setItem('selectedAudioId', action.payload);
         },
         setSelectedVideoId: (state, action: PayloadAction<string>) => {
             state.selectedCameraId = action.payload;
+            localStorage.setItem('selectedCameraId', action.payload);
         },
         addRemoteStream: (state, action: PayloadAction<RemoteMediaData>) => {
-            state.remoteMediaData.push(action.payload);
+            if(!state.remoteMediaData.some((curr) => curr.peerId === action.payload.peerId)) {
+                state.remoteMediaData.push(action.payload);
+
+            }
         },
         removeRemoteStream: (state, action: PayloadAction<string>) => {
             // payload PeerId
@@ -66,6 +70,9 @@ const mediaSlice = createSlice({
                 if(current.peerId === action.payload) return false;
                 return true;
             })
+        },
+        removeRemoteStreams: (state) => {
+            state.remoteMediaData = [];
         },
     },
     extraReducers: (builder) => {
@@ -91,7 +98,8 @@ const mediaSlice = createSlice({
         builder.addCase(getStreamSources.fulfilled, (state, action) => {
             state.videoSources = action.payload.videos;
             state.audioSources = action.payload.audioInputs;
-
+            state.selectedCameraId = action.payload.selectedCameraId;
+            state.selectedAudioId = action.payload.selectedAudioId;
             state.isMediaConnected = ConnectingStatus.CONNECTED;
         });
         builder.addCase(getStreamSources.pending, (state, action) => {
@@ -100,10 +108,8 @@ const mediaSlice = createSlice({
             state.error = '';
         });
         builder.addCase(getStreamSources.rejected, (state, action) => {
-
             state.videoSources = [];
             state.audioSources = [];
-
             state.isMediaConnected = ConnectingStatus.ERROR;
             state.error = action.payload!;
         });
@@ -119,7 +125,8 @@ export const {
     setSelectedAudioId,
     setSelectedVideoId,
     addRemoteStream,
-    removeRemoteStream
+    removeRemoteStream,
+    removeRemoteStreams
 } = mediaSlice.actions;
 
 
