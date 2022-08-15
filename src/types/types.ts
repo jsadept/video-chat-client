@@ -2,7 +2,7 @@
 
 export interface RemoteMediaData {
     peerId: string;
-    userInfo?: string;
+    userInfo?: UserResponse;
     stream: MediaStream;
 }
 
@@ -34,7 +34,7 @@ export interface UserResponse{
     userId?: string;
     email: string;
     nickname: string;
-    roles: string[];
+    roles?: string[];
 }
 
 export enum LoadingStatus {
@@ -45,6 +45,13 @@ export enum LoadingStatus {
     SUCCESS = "SUCCESS"
 }
 
+export enum CheckingStatus {
+    CHECKED = "CHECKED",
+    CHECKING = "CHECKING",
+    ERROR = "ERROR",
+    NEVER = "NEVER",
+    SUCCESS = "SUCCESS"
+}
 
 export enum CreatingStatus {
     CREATED = "CREATED",
@@ -98,4 +105,12 @@ export interface VideoSettings {
 
 export interface AudioSettings {
     deviceId?: string | { exact: string };
+}
+
+
+
+export interface ChatMessage {
+    user: string;
+    message: string;
+    time: number;
 }
