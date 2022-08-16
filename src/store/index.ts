@@ -6,6 +6,7 @@ import userSlice from './user/user-slice';
 import socketSlice from "./socket/socket-slice";
 import mediaSlice from "./media/media-slice";
 import peerSlice from "./peer/peer-slice";
+import chatSlice from "./chat/chat-slice";
 
 export const store = configureStore({
     reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
         socket: socketSlice,
         media: mediaSlice,
         peer: peerSlice,
+        chat: chatSlice,
     },
     middleware: getDefaultMiddleware =>
         getDefaultMiddleware({
