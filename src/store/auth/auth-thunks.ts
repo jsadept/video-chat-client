@@ -17,9 +17,9 @@ export const initAuth = createAsyncThunk<
                 return true;
             }
             return false;
-        } catch (e) {
-            // @ts-ignore
-            return thunkAPI.rejectWithValue(error.response.data);
+        } catch (err) {
+            const error = err as Error;
+            return thunkAPI.rejectWithValue(error.message)
         }
 });
 
@@ -36,9 +36,9 @@ export const login = createAsyncThunk<
 
         thunkAPI.dispatch(setUser({...result.data.user}));
         return result.data;
-    } catch (error) {
-        // @ts-ignore
-        return thunkAPI.rejectWithValue(error.response.data);
+    } catch (err) {
+        const error = err as Error;
+        return thunkAPI.rejectWithValue(error.message)
     }
 })
 
@@ -52,8 +52,8 @@ export const registration = createAsyncThunk<
         try {
             const result = await axios.post(API_BASE_URL+AUTH_LOGIN, UserRegistrationData);
             return result.data;
-        } catch (error){
-            // @ts-ignore
-            return thunkAPI.rejectWithValue(error.response.data);
+        } catch (err) {
+            const error = err as Error;
+            return thunkAPI.rejectWithValue(error.message)
         }
 })
