@@ -1,6 +1,6 @@
 .MeetCreateBar__item{
     width: 46%;
-    min-width: 320px;
+    min-width: 300px;
     margin: 20px 10px;
     padding: 12px;
     border-radius: 12px;
@@ -24,4 +24,26 @@
     background-color: rgba(255,255,255, 0.2);
     margin-bottom: 40px;
     border: 1px solid white;
+}
+
+
+
+
+.MeetNav__button{
+    margin: 10px!important;
+    borderRadius: 20px!important;
+}
+
+@media all and (max-width: 1200px){
+
+    .MeetNav__button{
+        margin: 15px!important;
+        borderRadius: 20px!important;
+        /*padding: 4px!important;*/
+        min-width: 40px!important;
+    }
+    .MeetNav__button_centred{
+        position: absolute;
+        max-width: 230px;
+    }
 }
