@@ -5,5 +5,10 @@ export const peerConfig = {
     port: PEER_PORT,
     secure: false,
     path: '/peerServer',
-    debug: 0 // from 0 up to 3
+    debug: 1, // from 0 up to 3
+    config: {
+        'iceServers': [
+            { url: 'stun:stun.l.google.com:19302' },
+        ]
+    }
 }
