@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {
     Box,
     Chip,
@@ -12,12 +12,20 @@ import {
     Tooltip
 } from "@mui/material";
 import {RouteNames} from "../../../routes/routes";
-import {Home, Logout, Message, Settings, Update} from "@mui/icons-material";
+import {Close, Duo, Home, Logout, Message, Settings, Update} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 import {logoutSuccess} from "../../../store/user/user-slice";
 import {useAppDispatch} from "../../../hooks/redux";
+import { resetAuthState } from '../../../store/auth/auth-slice';
 
-const Sidebar = () => {
+interface SidebarProps{
+    mobileOpen: boolean;
+    setMobileOpen: (isOpen: boolean) => void;
+}
+
+
+
+const Sidebar: FC<SidebarProps> = ({mobileOpen, setMobileOpen}) => {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -29,13 +37,23 @@ const Sidebar = () => {
 
     const logOut = () => {
         dispatch(logoutSuccess());
+        dispatch(resetAuthState());
         navigate(RouteNames.LOGIN);
     }
 
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', height: '100%'}}>
-            <Toolbar  sx={{marginBottom: '100px'}} >Logo</Toolbar>
+            <Toolbar  sx={{marginBottom: '100px', padding: '0 0 0 5px!important', display: 'flex', justifyContent: 'space-between'}} >
+                <Box sx={{padding: '10px 12px', backgroundColor: 'rgba(81, 33, 165, 1)', borderRadius: '50px'}}>
+                    <Duo sx={{marginBottom: '-5px'}} />
+                </Box>
+                <Box sx={{p: 2, width: '59px', height: '64px', cursor: 'pointer', marginLeft: '30px'}} onClick={() => setMobileOpen(!mobileOpen)}>
+                    <Close />
+                </Box>
+
+
+            </Toolbar>
             <List sx={{flexGrow: '1'}}>
                 <ListItem disablePadding onClick={() => menuHandleClick(RouteNames.HOME)} >
                     <Tooltip title="Home" placement="right">
@@ -100,16 +118,6 @@ const Sidebar = () => {
                     </Tooltip>
                 </ListItem>
             </List>
-            {/*<Divider />*/}
-            {/*<List>*/}
-            {/*    {[].map((text, index) => (*/}
-            {/*        <ListItem key={text} disablePadding>*/}
-            {/*            <ListItemButton>*/}
-            {/*                <ListItemText primary={text} />*/}
-            {/*            </ListItemButton>*/}
-            {/*        </ListItem>*/}
-            {/*    ))}*/}
-            {/*</List>*/}
         </Box>
     );
 };
