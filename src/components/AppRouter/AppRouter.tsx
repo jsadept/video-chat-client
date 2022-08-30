@@ -6,10 +6,7 @@ import {selectAuthIsLogin} from "../../store/auth/auth-selector";
 import {initAuth} from "../../store/auth/auth-thunks";
 
 const AppRouter = () => {
-
-
     const dispatch = useAppDispatch();
-
 
     useEffect(() => {
         // login if we have user in localStorage
@@ -17,7 +14,7 @@ const AppRouter = () => {
     }, [])
 
     const isAuth = useAppSelector(selectAuthIsLogin);
-    console.log(isAuth)
+
     return (
         isAuth ?
             <Routes>
