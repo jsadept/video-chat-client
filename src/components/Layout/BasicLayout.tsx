@@ -1,26 +1,14 @@
 import {
     AppBar,
-    Badge,
     Box,
-    Chip,
     CssBaseline,
-    Divider,
     Drawer,
     IconButton,
-    List,
-    ListItem, ListItemButton,
-    ListItemIcon,
-    ListItemText,
     Toolbar,
-    Tooltip,
     Typography
 } from '@mui/material';
 import React, { FC } from 'react';
-import {Inbox, Mail, Menu, AddBox, Logout, Settings, Home, Update, Message} from '@mui/icons-material';
-import {privateRoutes, RouteNames} from "../../routes/routes";
-import { useNavigate } from 'react-router-dom';
-import {useAppDispatch} from "../../hooks/redux";
-import {logoutSuccess} from "../../store/user/user-slice";
+import {Menu} from '@mui/icons-material';
 import Sidebar from "./Sidebar/Sidebar";
 
 interface IBasicLayout {
@@ -49,8 +37,10 @@ const BasicLayout: FC<IBasicLayout> = (props) => {
             <AppBar
                 position="fixed"
                 sx={{
-                    width: { sm: `calc(100% - ${drawerMobileWidth}px)`, md: `calc(100% - ${drawerWidth}px)`},
-                    ml: { sm: `${drawerMobileWidth}px`, md: `calc(100% - ${drawerWidth}px)` },
+                    zIndex: (theme) => theme.zIndex.drawer + 100,
+                    width: mobileOpen ? { sm: `calc(100% - ${drawerMobileWidth}px)`, lg: `calc(100% - ${drawerWidth}px)`} : { xs: `100%`, sm: `calc(100% - ${drawerWidth}px)`},
+                    ml: { sm: `0`, lg: `calc(100% - ${drawerWidth}px)` },
+                    height: 60
                 }}
             >
                 <Toolbar>
@@ -64,16 +54,15 @@ const BasicLayout: FC<IBasicLayout> = (props) => {
                         <Menu />
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-                        Responsive drawer
+                        VMeet
                     </Typography>
                 </Toolbar>
             </AppBar>
             <Box
                 component="nav"
-                sx={{ width: { sm: drawerMobileWidth, md: drawerWidth }, flexShrink: { sm: 0 } }}
+                sx={{ width: { xs: '0',sm: mobileOpen ? { xs: drawerMobileWidth, sm: drawerWidth } : drawerWidth }, flexShrink: { sm: 0 } }}
                 aria-label="Navigation"
             >
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Drawer
                     container={container}
                     variant="temporary"
@@ -83,11 +72,12 @@ const BasicLayout: FC<IBasicLayout> = (props) => {
                         keepMounted: true, // Better open performance on mobile.
                     }}
                     sx={{
+                        zIndex: (theme) => theme.zIndex.drawer + 100,
                         display: { xs: 'block', sm: 'none' },
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerMobileWidth },
                     }}
                 >
-                    <Sidebar />
+                    <Sidebar {...{mobileOpen, setMobileOpen}} />
                 </Drawer>
                 <Drawer
                     variant="permanent"
@@ -97,66 +87,17 @@ const BasicLayout: FC<IBasicLayout> = (props) => {
                     }}
                     open
                 >
-                    <Sidebar />
+                    <Sidebar {...{mobileOpen, setMobileOpen}}/>
                 </Drawer>
             </Box>
             <Box
                 component="main"
-                sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+                sx={{ height: '100vh', padding: '90px 30px 30px 30px',flexGrow: 1, width: { xs: '100%', sm: `calc(100% - ${drawerWidth}px)` } }}
             >
-                <Toolbar />
                 {children}
             </Box>
         </Box>
     );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-// const BasicLayout: FC<IBasicLayout> = ({children}) => {
-//     return (
-//
-//         <div>
-//             <Header
-//                 style={{ background: '#0288d1' }}
-//                 elevation={3}
-//                 renderMenuIcon={(opened) =>
-//                     opened ? <Icon>chevron_left</Icon> : <Icon>menu_rounded</Icon>
-//                 }
-//             >
-//                 {({ screen, collapsed }) =>
-//                     data.header && <HeaderEx screen={screen} collapsed={collapsed} />
-//                 }
-//             </Header>
-//             <div></div>
-//             <Nav
-//                 renderIcon={(collapsed) =>
-//                     collapsed ? <Icon>chevron_right</Icon> : <Icon>chevron_left</Icon>
-//                 }
-//                 header={({ collapsed }) =>
-//                     data.nav && <NavHeaderEx collapsed={collapsed} />
-//                 }
-//             >
-//                 {data.nav && <NavContentEx />}
-//             </Nav>
-//             {children}
-//         </div>
-//     );
-// };
-//
 export default BasicLayout;
