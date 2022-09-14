@@ -80,7 +80,7 @@ const LoginForm = () => {
                 showPassword: false,
             })
         }
-    }, [isAuth, authError])
+    }, [isAuth, authError, navigate])
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>

@@ -1,6 +1,5 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import { RootState } from "../index";
-import {setAudioSources, setVideoSources, setStream } from "./media-slice";
 
 
 export const updateStream = createAsyncThunk<

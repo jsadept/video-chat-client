@@ -11,7 +11,7 @@ const AppRouter = () => {
     useEffect(() => {
         // login if we have user in localStorage
         dispatch(initAuth());
-    }, [])
+    }, [dispatch])
 
     const isAuth = useAppSelector(selectAuthIsLogin);
 

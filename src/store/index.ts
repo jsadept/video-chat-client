@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import {Action, applyMiddleware, combineReducers} from "redux";
+import {Action} from "redux";
 import { ThunkAction } from 'redux-thunk';
 import authSlice from './auth/auth-slice';
 import userSlice from './user/user-slice';

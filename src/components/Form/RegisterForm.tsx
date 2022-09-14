@@ -7,7 +7,7 @@ import {isValidEmail} from "../../utils/isValidEmail";
 import {registration} from "../../store/auth/auth-thunks";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {RouteNames} from "../../routes/routes";
-import {selectAuthErrorMessage, selectAuthIsLogin, selectAuthIsRegistered} from "../../store/auth/auth-selector";
+import {selectAuthErrorMessage, selectAuthIsRegistered} from "../../store/auth/auth-selector";
 
 const RegisterForm = () => {
 
@@ -80,7 +80,7 @@ const RegisterForm = () => {
                 showPassword: false,
             })
         }
-    }, [isRegistered, authError])
+    }, [isRegistered, authError, navigate])
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>

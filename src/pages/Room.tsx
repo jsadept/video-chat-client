@@ -1,13 +1,11 @@
-import {Box, Grid} from '@mui/material';
-import React, {useEffect, useState} from 'react';
+import {Box} from '@mui/material';
+import React, {useEffect} from 'react';
 import BasicLayout from "../components/Layout/BasicLayout";
 import Meet from '../components/Meet/Meet';
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
-import {getStreamSources, updateStream } from '../store/media/media-thunks';
-import {peerConnect, peerDisconnect} from '../store/peer/peer-thunks';
+import {peerDisconnect} from '../store/peer/peer-thunks';
 import {joinRoom, leaveRoom} from "../store/socket/socket-thunks";
 import {selectSocketCurrentRoomState} from "../store/socket/socket-selector";
-import {getCurrentDate} from "../utils/getCurrentDate";
 
 const Room = () => {
     const dispatch = useAppDispatch();
@@ -26,7 +24,7 @@ const Room = () => {
             dispatch(leaveRoom());
 
         }
-    }, [])
+    }, [currentRoomId, dispatch])
 
 
     return(
