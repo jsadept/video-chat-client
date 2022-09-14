@@ -55,7 +55,7 @@ const Home = () => {
                                 </CardContent>
                                 <CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
                                     <Button disabled={true} variant={"outlined"} size="small">Connect</Button>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                                    <Typography component={'span'} sx={{ fontSize: 14 }} color="text.secondary">
                                         <Chip label="1c32b8fd-ec1b-447d-8ee6-f6540d18ee0a" />
                                     </Typography>
                                 </CardActions>
@@ -76,7 +76,7 @@ const Home = () => {
                                 </CardContent>
                                 <CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
                                     <Button disabled={true} variant={"outlined"} size="small">Connect</Button>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                                    <Typography component={'span'} sx={{ fontSize: 14 }} color="text.secondary">
                                         <Chip label="91c979eb-8a91-486c-8757-6e0260746b76"/>
                                     </Typography>
                                 </CardActions>
@@ -97,7 +97,7 @@ const Home = () => {
                                 </CardContent>
                                 <CardActions sx={{display: 'flex', justifyContent: 'space-between'}}>
                                     <Button disabled={true} variant={"outlined"} size="small">Connect</Button>
-                                    <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                                    <Typography component={'span'} sx={{ fontSize: 14 }} color="text.secondary">
                                         <Chip label="27272b55-7eb4-4dad-adf7-638eb5223a00"/>
                                     </Typography>
                                 </CardActions>
