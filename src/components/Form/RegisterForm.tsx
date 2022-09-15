@@ -83,7 +83,7 @@ const RegisterForm = () => {
                 showPassword: false,
             })
         }
-    }, [isRegistered, authError, navigate])
+    }, [isRegistered, authError, navigate, isNowRegistred])
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
