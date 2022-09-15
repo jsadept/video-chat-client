@@ -1,13 +1,16 @@
-import { Link } from '@mui/material';
+import {Alert, Link} from '@mui/material';
 import Typography from '@mui/material/Typography/Typography';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/Form/LoginForm';
 import { RouteNames } from '../routes/routes';
+import {useAppSelector} from "../hooks/redux";
+import {selectAuthIsRegistered} from "../store/auth/auth-selector";
 
 
 const Login = () => {
 
+    const isRegistered = useAppSelector(selectAuthIsRegistered);
     let navigate = useNavigate();
 
     function handleClick() {
@@ -16,10 +19,14 @@ const Login = () => {
 
     return (
         <div>
+
+
             <Typography variant="h2" component="h2" gutterBottom align="center" sx={{marginTop: '80px', marginBottom: '50px'}}>
                 Log In
             </Typography>
-
+            {isRegistered && (
+                <Alert variant={"filled"} sx={{width: '320px', margin: '0 auto 20px'}} severity="success">You have been successfully registered.</Alert>
+            )}
 
            <LoginForm />
 

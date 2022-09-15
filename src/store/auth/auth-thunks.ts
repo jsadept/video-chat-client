@@ -1,7 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
 import {UserData, UserRegistration, UserResponse} from "../../types/types";
-import {API_BASE_URL, AUTH_LOGIN} from "../../constants";
+import {API_BASE_URL, AUTH_LOGIN, AUTH_REG} from "../../constants";
 import { setUser } from "../user/user-slice";
 
 
@@ -50,7 +50,15 @@ export const registration = createAsyncThunk<
         { rejectValue: string }
     >('auth/registration', async ( UserRegistrationData, thunkAPI ) => {
         try {
-            const result = await axios.post(API_BASE_URL+AUTH_LOGIN, UserRegistrationData);
+            console.log(API_BASE_URL+AUTH_REG)
+            console.log(UserRegistrationData)
+            const result = await axios.post(API_BASE_URL+AUTH_REG, UserRegistrationData).then((res) => {
+                console.log(res)
+                return res.data;
+            }).catch((e) => {
+                console.log(e)
+            });
+            console.log(result)
             return result.data;
         } catch (err) {
             const error = err as Error;

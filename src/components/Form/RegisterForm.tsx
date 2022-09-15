@@ -26,6 +26,7 @@ const RegisterForm = () => {
     const [registrationError, setRegistrationError] = useState<boolean>(false);
     const [passwordError, setPasswordError] = useState<boolean>(false);
     const [emailError, setEmailError] = useState<boolean>(false);
+    const [isNowRegistred, setIsNowRegistred] = useState<boolean>(false);
 
     const handleChange =
         (prop: any) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,14 +46,15 @@ const RegisterForm = () => {
 
     const submitForm = async () => {
         setPasswordError(false);
-        setEmailError(true);
+        setEmailError(false);
 
 
-        if(!isValidPassword(values.password) && !isValidEmail(values.email)) {
+        if(!isValidPassword(values.password) || !isValidEmail(values.email)) {
             if(!isValidPassword(values.password)) setPasswordError(true);
             if(!isValidEmail(values.email)) setEmailError(true);
         }
         else{
+            setIsNowRegistred(true);
             dispatch(registration({nickName: values.nickname, email: values.email, password: values.password}));
         }
 
@@ -60,7 +62,8 @@ const RegisterForm = () => {
 
 
     useEffect(() => {
-        if(isRegistered){
+        if(isRegistered && isNowRegistred){
+            setIsNowRegistred(false);
             navigate(RouteNames.LOGIN);
         }
         else if(!isRegistered && authError){
@@ -98,7 +101,7 @@ const RegisterForm = () => {
                         label="Nickname"
                     />
                 </FormControl>
-                <FormControl sx={{ m: 1, width: '25ch', height: '56px' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '25ch', height: '56px', marginBottom: emailError ? '65px' : '0px' }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-email"
@@ -111,7 +114,7 @@ const RegisterForm = () => {
                         <Alert severity="error">Email is invalid</Alert>
                     )}
                 </FormControl>
-                <FormControl sx={{ m: 1, width: '25ch', height: '56px' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '25ch', height: '56px', marginBottom: passwordError ? '65px' : '0px' }} variant="outlined">
                     <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
