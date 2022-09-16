@@ -1,9 +1,5 @@
 export const peerConfig = {
-    secure: false,
-    debug: 1, // from 0 up to 3
-    config: {
-        'iceServers': [
-            { url: 'stun:stun.l.google.com:19302' },
-        ]
-    }
-}
+    key: "peerjs",
+    debug: 2,
+    secure: process.env.REACT_APP_ENV === "PRODUCTION" ? true : false, // secure : false for http connection
+};

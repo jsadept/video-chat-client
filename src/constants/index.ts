@@ -3,7 +3,7 @@
 export const SERVER_BASE_URL = "https://jsadept-video-chat.herokuapp.com";
 export const WEBSOCKET_BASE_URL = "https://jsadept-video-chat.herokuapp.com";
 
-export const PEER_BASE_URL = "https://jsadept-video-chat.herokuapp.com";
+export const PEER_BASE_URL = "video-chat-server-peer.herokuapp.com";
 export const PEER_PORT = 433;
 
 export const API_BASE_URL = SERVER_BASE_URL + "/api";
