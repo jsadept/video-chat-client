@@ -1,46 +1,85 @@
-# Getting Started with Create React App
+Video Chat Client
+============
+[![GitHub issues](https://img.shields.io/github/issues/jsadept/video-chat-client)](https://github.com/jsadept/video-chat-client/issues) 
+[![Current Version](https://img.shields.io/badge/version-1.0.7-green.svg)](https://github.com/jsadept/video-chat-client) 
+[![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](https://vmeet-chat.netlify.app) 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a video chat application powered by React that provides the main functions you'd expect from a video chat.
 
-## Available Scripts
 
-In the project directory, you can run:
+![Meet Page](https://i.imgur.com/iwyR2Et.png)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## HF
 
-### `npm test`
+I hope you're having fun exploring this project, learn something from the code or help us improve it.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Most good programmers do programming not because they expect to get paid or get adulation by the public, but because it is fun to program.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Tech stack
+- React JS
+- Socket.IO
+- PeerJS
+- MUI
+- Redux Toolkit
+- React Router Dom
+- JWT
+- Axios
+- TypeScript
+- Node.js
+- Express
+- MongoDB
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Features
+- Login / Registration
+- Create / Join Personal Rooms
+- Unique rooms generating
+- Unlimited duration calls
+- Chat Notifications
+- Share room
+- Choose camera / mic
+- Mute camera / mic at meet room
+- Meet chat in real-time
+- Users list 
+- Adaptive design
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Screenshots
+Home Page
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+![Home Page](https://i.imgur.com/wyhpWLt.png)
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Meet Page
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Meet Page](https://i.imgur.com/iwyR2Et.png)
+
+
+---
+
+## Setup
+Clone this repo to your desktop and run `npm install` to install all the dependencies.
+
+---
+
+## Usage
+After you clone this repo to your desktop, go to its root directory and run `npm install` to install its dependencies.
+
+Once the dependencies are installed, you can run  `npm start` to start the application. You will then be able to access it at localhost:3000
+
+Sign up, then create a room on the homepage, copy the room address and share it, join the room with your friends
+
+---
+
+## License
+
+This project is licensed under the terms of the **MIT** license.
